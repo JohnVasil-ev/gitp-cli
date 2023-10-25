@@ -1,0 +1,83 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "x64-windows",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_VERBOSE_MAKEFILE": "ON"
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "v143,host=x64",
+        "strategy": "external"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "msvc-x64-windows",
+      "hidden": true,
+      "inherits": "x64-windows",
+      "cacheVariables": {
+	      "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_C_COMPILER": "cl"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "windows-msvc-x64"
+        }
+      }
+    },
+    {
+      "name": "msvc-x64-windows-dbg",
+      "displayName": "MSVC-Debug",
+      "inherits": "msvc-x64-windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "msvc-x64-windows-rel",
+      "displayName": "MSVC-Release",
+      "inherits": "msvc-x64-windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "msvc-x64-windows-rdi",
+      "displayName": "MSVC-RelWithDebInfo",
+      "inherits": "msvc-x64-windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "msvc-x64-windows-dbg",
+      "displayName": "All",
+      "configurePreset": "msvc-x64-windows-dbg",
+      "targets": [
+        "gitp-cli"
+      ]
+    }
+  ]
+}
